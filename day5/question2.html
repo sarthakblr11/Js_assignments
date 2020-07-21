@@ -1,0 +1,110 @@
+<!-- Question 2:
+Create a Class User with properties as name, age & email.
+He can login and logout
+Create another class Moderator which has all the features of User, plus additional functionality to Add
+coins and remove coins.
+Create one more class Admin which has all the features of Moderator plus additional features like add a
+Course and delete a particular course for a user. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASSIGNMENT 2 DAY 5</title>
+</head>
+
+<body>
+    <h2>ASSIGNMENT 2 DAY 5</h2>
+    <script>
+        class User {
+            constructor(name, age, mailId) {
+                this.name = name;
+                this.age = age;
+                this.mailId = mailId;
+                this.coins = 0;
+                this.courses = [];
+            }
+            login = function () {
+                console.log(`${this.name} has logged in successfully`);
+                return this;
+            }
+            logout = function () {
+                console.log(`${this.name} has logged out successfully`);
+                return this;
+            }
+        }
+
+
+
+        class Moderator extends User {
+            // constructor(name, age, mailId, role) {
+            //     super(name, age, mailId);
+            //     this.role = role;
+            // }
+            addCoins = function (accountHolder, coin) {
+                accountHolder.coins = coin;
+                return this;
+            }
+            removeCoins = function (accountHolder, coin) {
+                accountHolder.coins -= coin;
+                return this;
+            }
+        }
+
+
+
+        class Admin extends Moderator {
+            addCourse = function (accountHolder, course) {
+                accountHolder.courses.push(course);
+
+            }
+            removeCourse = function (accountHolder, course) {
+                accountHolder.courses = accountHolder.courses.filter(function (item) {
+                    return item !== course;
+                });
+            }
+        }
+
+
+
+        //Creating users,moderators,admins
+        let dataBase = [];
+        let user1 = new User('Siva', 21, 'siav@outlook.com');
+        dataBase.push(user1);
+        let user2 = new User('Swarzzy', 18, 'swarzzy@outlook.com');
+        dataBase.push(user2);
+        let moderator1 = new Moderator('Revathi', 42, 'revathi@gmail.com');
+        dataBase.push(moderator1);
+        let admin1 = new Admin('Janarthana', 52, 'janarthanan@gmail.com');
+        dataBase.push(admin1);
+        //Adding coins to the users
+        moderator1.addCoins(user1, 20);
+        moderator1.addCoins(user2, 50);
+        console.log(`1) Number of coins earned by the users...`);
+        console.log(`${user1.name} has ${user1.coins} coins\n${user2.name} has ${user2.coins} coins`)
+        //Adding courses to the users
+        admin1.addCourse(user1, 'Python');
+        admin1.addCourse(user1, 'C#');
+        admin1.addCourse(user2, 'Java Script');
+        admin1.addCourse(user2, 'DBMS');
+        console.log("2) Courses enrolled by the users...");
+        console.log(`${user1.name} has enrolled [${user1.courses}] courses`);
+        console.log(`${user2.name} has enrolled [${user2.courses}] courses`);
+        // Removing coins to the users
+        moderator1.removeCoins(user1, 5);
+        moderator1.removeCoins(user2, 20);
+        console.log(`3) Remaining coins earned by the user...`);
+        console.log(`${user1.name} has ${user1.coins} coins\n${user2.name} has ${user2.coins} coins`);
+        // Removing the completed courses...
+        admin1.removeCourse(user1, 'Python');
+        admin1.removeCourse(user2, 'DBMS');
+        console.log("4) Courses yet to complete...");
+        console.log(`${user1.name} has ${user1.courses} course to complete`);
+        console.log(`${user2.name} has ${user2.courses} course to complete`);
+
+
+    </script>
+</body>
+
+</html>
