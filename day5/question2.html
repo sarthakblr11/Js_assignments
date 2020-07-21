@@ -44,10 +44,12 @@ Course and delete a particular course for a user. -->
             // }
             addCoins = function (accountHolder, coin) {
                 accountHolder.coins = coin;
+                console.log(`${accountHolder.name} has ${accountHolder.coins} coins`);
                 return this;
             }
             removeCoins = function (accountHolder, coin) {
                 accountHolder.coins -= coin;
+                console.log(`${accountHolder.name} has ${accountHolder.coins} coins`);
                 return this;
             }
         }
@@ -57,12 +59,15 @@ Course and delete a particular course for a user. -->
         class Admin extends Moderator {
             addCourse = function (accountHolder, course) {
                 accountHolder.courses.push(course);
-
+                console.log(`${accountHolder.name} has enrolled [${accountHolder.courses}] courses`);
+                return this;
             }
             removeCourse = function (accountHolder, course) {
                 accountHolder.courses = accountHolder.courses.filter(function (item) {
                     return item !== course;
                 });
+                console.log(`${accountHolder.name} has ${accountHolder.courses} course to complete`);
+                return this;
             }
         }
 
@@ -78,30 +83,30 @@ Course and delete a particular course for a user. -->
         dataBase.push(moderator1);
         let admin1 = new Admin('Janarthana', 52, 'janarthanan@gmail.com');
         dataBase.push(admin1);
+
+        console.log(`1) Number of coins earned by the users...`);
         //Adding coins to the users
         moderator1.addCoins(user1, 20);
         moderator1.addCoins(user2, 50);
-        console.log(`1) Number of coins earned by the users...`);
-        console.log(`${user1.name} has ${user1.coins} coins\n${user2.name} has ${user2.coins} coins`)
+
+        console.log("2) Courses enrolled by the users...");
         //Adding courses to the users
         admin1.addCourse(user1, 'Python');
         admin1.addCourse(user1, 'C#');
         admin1.addCourse(user2, 'Java Script');
         admin1.addCourse(user2, 'DBMS');
-        console.log("2) Courses enrolled by the users...");
-        console.log(`${user1.name} has enrolled [${user1.courses}] courses`);
-        console.log(`${user2.name} has enrolled [${user2.courses}] courses`);
+
+        console.log(`3) Remaining coins after reduction...`);
         // Removing coins to the users
         moderator1.removeCoins(user1, 5);
         moderator1.removeCoins(user2, 20);
-        console.log(`3) Remaining coins earned by the user...`);
-        console.log(`${user1.name} has ${user1.coins} coins\n${user2.name} has ${user2.coins} coins`);
+
+        console.log("4) Courses yet to complete...");
         // Removing the completed courses...
         admin1.removeCourse(user1, 'Python');
         admin1.removeCourse(user2, 'DBMS');
-        console.log("4) Courses yet to complete...");
-        console.log(`${user1.name} has ${user1.courses} course to complete`);
-        console.log(`${user2.name} has ${user2.courses} course to complete`);
+
+
 
 
     </script>
